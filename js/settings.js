@@ -1,109 +1,52 @@
-define(function() {
-	var defaults_ = {
-		api_key: '',
-		width: screen.width,
-		height: screen.height,
-		margin: {
-			top: 30,
-			bottom: 30,
-			left: 30,
-			right: 30
-		},
-		colors: {
-			background: '#000000',
-			unseen: '#303030',
-			apprentice: '#DD0093',
-			guru: '#882D9E',
-			master: '#294DDB',
-			enlighten: '#0093DD',
-			burned: '#FFFFFF'
-		}
-	};
-	var settings_ = {};
+define(function () {
+    var defaults_ = {
 
-    function writeCookie() {
-		var variable = 'wkw_settings=' + window.btoa(JSON.stringify(settings_));
-		var date = new Date();
-        date.setTime(date.getTime() + (365 * 24 * 60 * 60 * 1000));
-		var expires = 'expires=' + date.toGMTString();
-		document.cookie = variable + ';' + expires;
-	}
+        api_key:'placeholderKey',
+        width: screen.width,
+        height: screen.height,
+        margin: {
+            top: 50,
+            bottom: 50,
+            left: 50,
+            right: 50
+        },
+        colors: {
+            background: '#000000',
+            unseen: '#303030',
+            apprentice: '#DD0093',
+            guru: '#882D9E',
+            master: '#294DDB',
+            enlighten: '#0093DD',
+            burned: '#FFFFFF'
+        }
+    };
+    var settings_ = {};
+    //Read and Write Cookies (Hopefully this works with WE.
+    var apiform = document.getElementById('form-apikey');
+    //Read And Write Settings properties.
+    function read(property) {
+        if (settings_[property] === undefined) {
+            settings_[property] = defaults_[property];
+           
+        }
+        return settings_[property];
+    }
+    function write(property, value) {
+        settings_[property] = value;
 
-	function readCookie() {
-		document.cookie.split(';').forEach(function(cookie) {
-			var cookieParts = cookie.split('=');
-			var key = cookieParts[0];
-			var value = cookieParts[1];
-			if (key === 'wkw_settings') {
-				settings_ = JSON.parse(window.atob(value));
-				return;
-			}
-		});
-	}
-
-	function read(property) {
-		if (settings_[property] === undefined) {
-			settings_[property] = defaults_[property];
-			writeCookie();
-		}
-		return settings_[property];
-	}
-
-	function write(property, value) {
-		settings_[property] = value;
-		writeCookie();
-	}
-
-	readCookie();
-
-	function connectFormField(fieldName, proprtyName) {
-		var elem = document.getElementById(fieldName);
-		elem.value = read(proprtyName);
-		elem.oninput = function() {
-			write(proprtyName, elem.value);
-		}
-	}
-
-	function connectMarginField(fieldName, proprtyName) {
-		var elem = document.getElementById(fieldName);
-		elem.value = read('margin')[proprtyName];
-		elem.oninput = function() {
-			settings_.margin[proprtyName] = parseInt(elem.value);
-			writeCookie();
-		}
-	}
-
-	function connectColorField(fieldName, proprtyName) {
-		var elem = document.getElementById(fieldName);
-		elem.value = read('colors')[proprtyName];
-		elem.oninput = function() {
-			settings_.colors[proprtyName] = elem.value;
-			writeCookie();
-		}
-	}
-
-	connectFormField('form-apikey', 'api_key');
-	connectFormField('form-width', 'width');
-	connectFormField('form-height', 'height');
-
-	connectMarginField('form-margin-top', 'top');
-	connectMarginField('form-margin-bottom', 'bottom');
-	connectMarginField('form-margin-left', 'left');
-	connectMarginField('form-margin-right', 'right');
-
-	connectColorField('form-color-background', 'background');
-	connectColorField('form-color-unseen', 'unseen');
-	connectColorField('form-color-apprentice', 'apprentice');
-	connectColorField('form-color-guru', 'guru');
-	connectColorField('form-color-master', 'master');
-	connectColorField('form-color-enlighten', 'enlighten');
-	connectColorField('form-color-burned', 'burned');
-
-	return {
-		get api_key() { return read('api_key'); },
-		get width() { return read('width'); },
-		get height() { return read('height'); },
-		get margin() { return read('margin'); },
-		get colors() { return read('colors'); }
-	};
+    }
+    
+    return {
+        get updateProperties(){return updateSettings()},
+        get api_key() { return read('api_key'); },
+        get width() { return read('width'); },
+        get height() { return read('height'); },
+        get margin() { return read('margin'); },
+        get colors() { return read('colors'); },
+        set api_key(v) { write('api_key',v); },
+        set width(v) { write('width',v); },
+        set height(v) { write('height',v); },
+        set margin(v) { write('margin',v); },
+        set colors(v) { write('colors',v); }
+    };
 });

@@ -10,7 +10,7 @@ define(['settings'], function(settings) {
             
 			require([url], function(data) {
 				if (data.error !== undefined) {
-					var messageElem = document.getElementById('message');
+					var messageElem = document.getElementById('message1');
 					messageElem.innerHTML = "API Error: " + data.error.message;
 					return;
 				}

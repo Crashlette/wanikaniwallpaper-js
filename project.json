@@ -1,0 +1,30 @@
+{
+	"description" : "Wanikaniwallper JS generator, \nPage sits black for a couple seconds after putting in API key.  If you still don't see anything, try clicking on another wallpaper and then clicking on this one again.\nI'll be working on adding custom color and margin properties in the near future, but for now they can be edited directly in the  settings.js file.\n\nVisit http://hexagenic.net/wanikaniwallpaper-js/ to try it out the original version this is based on",
+	"file" : "index.html",
+	"general" : 
+	{
+		"properties" : 
+		{
+			"public_API_Key" : 
+			{
+				"order" : 0,
+				"text" : "Public API Key ",
+				"type" : "textinput",
+				"value" : " "
+			},
+			"schemecolor" : 
+			{
+				"order" : 0,
+				"text" : "ui_browse_properties_scheme_color",
+				"type" : "color",
+				"value" : "0 0 0"
+			}
+		}
+	},
+	"preview" : "preview.jpg",
+	"tags" : [ "Unspecified" ],
+	"title" : "WaniKaniWallpaper",
+	"type" : "web",
+	"visibility" : "public",
+	"workshopid" : 972607182
+}
